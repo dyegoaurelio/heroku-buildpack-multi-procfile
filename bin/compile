@@ -52,6 +52,7 @@ ENV_DIR=$3
 
 PROCFILE=$(cat "${ENV_DIR}/PROCFILE")
 APTFILE=$(cat "${ENV_DIR}/APTFILE")
+RUNTIME=$(cat "${ENV_DIR}/RUNTIME")
 
 if [[ -z "${PROCFILE}" ]]; then
     echo "PROCFILE was not set. Aborting" | indent
@@ -79,6 +80,13 @@ if [[ -z "${APTFILE}" ]]; then
 else
    echo "Aptfile found" | indent
    cp "${BUILD_DIR}/${APTFILE}" "${BUILD_DIR}/Aptfile"
+fi
+
+if [[ -z "${RUNTIME}" ]]; then
+    echo "Runtime not set" | indent
+else
+   echo "Runtime found" | indent
+   cp "${BUILD_DIR}/${RUNTIME}" "${BUILD_DIR}/runtime.txt"
 fi
 
 
