@@ -33,4 +33,4 @@ fi
 
 cd $APP_DIR
 
-echo $TEST_VARIABLE
+echo $TEST_VARIABLE | indent
