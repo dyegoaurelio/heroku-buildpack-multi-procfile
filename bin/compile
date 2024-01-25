@@ -31,6 +31,4 @@ if [[ -f "${APP_DIR}/app.json" ]]; then
     echo "Copied ${APP_DIR}/app.json as app.json successfully" | indent
 fi
 
-cd $APP_DIR
-
-echo $TEST_VARIABLE | indent
+BUILD_DIR=$APP_DIR
