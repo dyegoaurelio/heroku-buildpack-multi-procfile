@@ -32,3 +32,5 @@ if [[ -f "${APP_DIR}/app.json" ]]; then
 fi
 
 cd $APP_DIR
+
+echo $TEST_VARIABLE
