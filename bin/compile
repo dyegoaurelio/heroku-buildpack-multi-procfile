@@ -9,6 +9,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 PROCFILE=$(cat "${ENV_DIR}/PROCFILE")
+APTFILE=$(cat "${ENV_DIR}/PROCFILE")
 
 if [[ -z "${PROCFILE}" ]]; then
     echo "PROCFILE was not set. Aborting" | indent
@@ -31,4 +32,13 @@ if [[ -f "${APP_DIR}/app.json" ]]; then
     echo "Copied ${APP_DIR}/app.json as app.json successfully" | indent
 fi
 
-BUILD_DIR=$APP_DIR
+if [[ -z "${APTFILE}" ]]; then
+    echo "Aptfile not set" | indent
+fi
+else
+   echo "Aptfile found" | indent
+   cp "${BUILD_DIR}/${APTFILE}" "${BUILD_DIR}/Aptfile"
+fi
+
+pip install pip-tools
+
