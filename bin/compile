@@ -34,7 +34,6 @@ fi
 
 if [[ -z "${APTFILE}" ]]; then
     echo "Aptfile not set" | indent
-fi
 else
    echo "Aptfile found" | indent
    cp "${BUILD_DIR}/${APTFILE}" "${BUILD_DIR}/Aptfile"
