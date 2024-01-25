@@ -39,5 +39,4 @@ else
    cp "${BUILD_DIR}/${APTFILE}" "${BUILD_DIR}/Aptfile"
 fi
 
-/app/.heroku/python/bin/pip install pip-tools
 
