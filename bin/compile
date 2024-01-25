@@ -4,6 +4,48 @@ indent() {
     sed -u 's/^/       /'
 }
 
+
+handle_requirements_copy(){
+# Create or clear the output file
+> "$OUTPUT_REQ_FILE"
+
+# Read each line from the original requirements file
+while IFS= read -r line
+do
+  # Check if the line starts with '-r'
+  if [[ $line == -r* ]]; then
+    # Extract the relative path and convert it to an absolute path
+    relative_path=$(echo $line | cut -d ' ' -f2)
+    absolute_path="$REQ_DIR/$relative_path"
+    # Write the modified line to the new file
+    echo "-r $absolute_path" >> "$OUTPUT_REQ_FILE"
+  else
+    # Write the line as-is to the new file
+    echo "$line" >> "$OUTPUT_REQ_FILE"
+  fi
+done < "$ORIGINAL_REQ_FILE"
+
+echo "New requirements file created: $OUTPUT_REQ_FILE"
+
+}
+
+
+copy_python_requirements(){
+  REQUIREMENTS=$(cat "${ENV_DIR}/REQUIREMENTS")
+    if [[ -z "${PROCFILE}" ]]; then
+        echo "REQUIREMENTS was not set." | indent
+    else
+        echo "copying REQUIREMENTS" | indent
+
+        ORIGINAL_REQ_FILE=$(echo "${BUILD_DIR}/${REQUIREMENTS}")
+        REQ_DIR=$(dirname "${ORIGINAL_REQ_FILE}")
+        OUTPUT_REQ_FILE=$(echo "${BUILD_DIR}/requirements.txt")
+
+        handle_requirements_copy
+    fi
+}
+
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
@@ -40,3 +82,4 @@ else
 fi
 
 
+copy_python_requirements
